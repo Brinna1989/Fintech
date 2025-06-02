@@ -1,0 +1,251 @@
+    body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #111;
+    color: #eee;
+    margin: 0;
+    padding: 0;
+    }
+
+ header {
+  background-color: #2d2d2d;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #eee;
+  max-width: 400px;  /* ancho máximo fijo */
+  margin: 0 auto;    /* centra el header en la pantalla */
+  border-radius: 8px; 
+  box-shadow: 0 0 10px #00ffae88; 
+}
+
+header .logo {
+  width: 100%;        /* ocupa todo el ancho disponible */
+  max-width: 300px;   /* pero no más de 300px */
+  height: auto;       /* mantiene la proporción */
+  margin-bottom: 0.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header h1 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+
+
+    main {
+    padding: 2rem;
+    }
+
+    h2, h3 {
+    color: #00ffae;
+    }
+
+    form, ul {
+    max-width: 400px;
+    margin: 1rem 0;
+    }
+
+form input,
+form select,
+form button {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0.4rem 0;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+}
+
+
+    button {
+    background-color: #00ffae;
+    color: #111;
+    font-weight: bold;
+    }
+
+    li {
+    background-color: #222;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border-left: 5px solid gray;
+    }
+
+    li.BTC {
+    border-color: orange;
+    }
+    li.ETH {
+    border-color: violet;
+    }
+    li.USDT {
+    border-color: green;
+    }
+
+    li {
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+li.nuevo {
+  background-color: rgb(114, 212, 219) !important;
+  transform: scale(1.03);
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.top-sections {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.balances,
+.form-section {
+  flex: 1 1 350px;
+  max-width: 400px;
+}
+
+#vaciar {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0.4rem 0;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #00ffae;
+  color: #111;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hamburger-menu {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+.menu-icon {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #00ffae;
+  display: block;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.menu {
+  display: none;
+  flex-direction: column;
+  background-color: #222;
+  border: 1px solid #00ffae;
+  position: absolute;
+  top: 2.5rem;
+  right: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.menu li {
+  list-style: none;
+  margin: 0.5rem 0;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #00ffae;
+  font-weight: bold;
+}
+
+#menu-toggle:checked + .menu-icon + .menu {
+  display: flex;
+}
+
+/* pagina recibir */
+
+.red-info {
+  margin-top: 1rem;
+  background-color: #222;
+  border-left: 5px solid #00ffae;
+  padding: 1rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+}
+
+.tooltip {
+  background-color: #111;
+  border: 1px solid #00ffae;
+  color: #00ffae;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+footer {
+  margin-top: 3rem;
+  background-color: #0f0f0f;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 1px solid #222;
+}
+
+footer a {
+  color: #00ffae;
+  margin: 0 0.5rem;
+  text-decoration: none;
+}
+
+.qr-img {
+  width: 220px;
+  height: 220px;
+  border: 2px solid #00ffae;
+  border-radius: 12px;
+  margin: 1rem auto;
+  display: block;
+}
+
+button {
+  background-color: #00ffae;
+  border: none;
+  color: black;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #00cc8f;
+}
+
+.direccion span {
+  font-family: monospace;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+

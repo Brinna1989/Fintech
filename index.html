@@ -1,0 +1,61 @@
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Crypto Wallet</title>
+      <link rel="stylesheet" href="/css/styles.css" />
+      </head>
+      <body>
+    <header>
+    <img src="/img/logo.jpg" alt="Crypto Logo" class="logo" />
+    <h1> 🔐 Crypto Wallet</h1>
+    <nav class="hamburger-menu">
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="menu-icon">☰</label>
+    <ul class="menu">
+      <li><a href="/index.html">Inicio</a></li>
+      <li><a href="/pages/recibir.html">Recibir</a></li>
+    </ul>
+  </nav>
+  </header>
+  
+    <main>
+  <div class="top-sections">
+    <section class="balances">
+      <h2>Saldos</h2>
+      <ul id="saldos">
+        <!-- Saldo por moneda -->
+      </ul>
+    </section>
+
+    <section class="form-section">
+      <h3>Agregar transacción</h3>
+      <form id="formulario">
+        <select id="cripto" required>
+          <option value="BTC">Bitcoin (BTC)</option>
+          <option value="ETH">Ethereum (ETH)</option>
+          <option value="USDT">Tether (USDT)</option>
+        </select>
+        <input type="number" id="monto" placeholder="Monto" required />
+        <select id="tipo">
+          <option value="ingreso">Ingreso</option>
+          <option value="egreso">Egreso</option>
+        </select>
+        <input type="text" id="descripcion" placeholder="Descripción" required />
+        <button type="submit">Confirmar</button>
+      </form>
+    </section>
+  </div>
+
+  <section class="historial">
+    <h3>Historial</h3>
+    <ul id="historial"></ul>
+    <button id="vaciar">Vaciar historial</button>
+  </section>
+</main>
+
+
+    <script src="/js/main.js"></script>
+    </body>
+    </html>

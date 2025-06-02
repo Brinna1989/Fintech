@@ -1,0 +1,57 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Crypto Wallet</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    </head>
+    <body>
+    <header>
+        <img src="/img/logo.jpg" alt="Crypto Logo" class="logo" />
+        <h1>🔐 Crypto Wallet</h1>
+        <nav class="hamburger-menu">
+        <input type="checkbox" id="menu-toggle" />
+        <label for="menu-toggle" class="menu-icon">☰</label>
+        <ul class="menu">
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/pages/recibir.html">Recibir</a></li>
+        </ul>
+        </nav>
+    </header>
+
+    <main class="recibir-contenedor">
+        <section class="recibir-box">
+        <h2>Recibir Criptomonedas</h2>
+
+        <label for="cripto">Selecciona una criptomoneda</label>
+        <select id="cripto">
+            <option value="BTC">Bitcoin (BTC)</option>
+            <option value="ETH">Ethereum (ETH)</option>
+            <option value="USDT">Tether (USDT)</option>
+        </select>
+
+        <div class="qr-section fade-in" id="qrContainer">
+            <img src="/img/QR CODE.png" alt="Código QR" class="qr-img"/>
+            <p class="direccion">Dirección: <span id="direccion-wallet">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</span></p>
+            <button onclick="copiarDireccion()">Copiar dirección</button>
+        </div>
+
+        <div class="red-info" id="info-red">
+            Red: Bitcoin Mainnet. Comisiones pueden variar según congestión.
+        </div>
+
+        <div class="tooltip">
+            ⚠️ Nunca compartas tu clave privada ni tu seed phrase.
+        </div>
+        </section>
+    </main>
+
+    <footer>
+        Hecho con ❤️ en Argentina · <a href="#">Política de privacidad</a> · <a href="#">Contacto</a><br />
+        <a href="#">Instagram</a> | <a href="#">Twitter</a> | <a href="#">GitHub</a>
+    </footer>
+
+    <script src="/js/recibir.js"></script>
+    </body>
+    </html>
