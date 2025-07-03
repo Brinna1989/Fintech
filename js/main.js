@@ -4,7 +4,11 @@
     function calcularSaldos() {
     const saldos = { BTC: 0, ETH: 0, USDT: 0 };
     movimientos.forEach(m => {
-        saldos[m.moneda] += m.tipo === "ingreso" ? m.monto : -m.monto;
+        if (["ingreso", "compra"].includes(m.tipo)) {
+        saldos[m.moneda] += m.monto;
+        } else if (["egreso", "venta", "pago"].includes(m.tipo)) {
+        saldos[m.moneda] -= m.monto;
+        }
     });
     return saldos;
     }
@@ -20,20 +24,17 @@
     });
     }
 
-        function mostrarHistorial() {
+    function mostrarHistorial() {
     const ul = document.getElementById("historial");
     ul.innerHTML = "";
     movimientos.forEach(m => {
         const li = document.createElement("li");
-        li.classList.add(m.moneda, "nuevo"); // Agrega animación
+        li.classList.add(m.moneda, "nuevo");
         li.textContent = `${m.tipo.toUpperCase()} - ${m.moneda} ${m.monto} | ${m.descripcion} (${m.fecha})`;
         ul.appendChild(li);
-
-        // Elimina la clase 'nuevo' luego de 500ms para reiniciar la animación si se agrega otro
         setTimeout(() => li.classList.remove("nuevo"), 500);
     });
     }
-
 
     document.getElementById("formulario").addEventListener("submit", e => {
     e.preventDefault();
@@ -43,13 +44,13 @@
     const descripcion = document.getElementById("descripcion").value;
 
     if (!isNaN(monto) && descripcion) {
-    const nuevoMov = {
+        const nuevoMov = {
         moneda,
         monto,
         tipo,
         descripcion,
-        fecha: new Date().toLocaleString() // <-- esto agrega la fecha
-    };
+        fecha: new Date().toLocaleString()
+        };
 
         movimientos.push(nuevoMov);
         localStorage.setItem("movimientos", JSON.stringify(movimientos));
@@ -60,26 +61,35 @@
     });
 
     document.getElementById("vaciar").addEventListener("click", () => {
-    if (confirm("¿Seguro que querés vaciar los datos?")) {
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "Esto eliminará todo el historial de transacciones.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, vaciar",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
         movimientos = [];
         localStorage.removeItem("movimientos");
         mostrarSaldos();
         mostrarHistorial();
-    }
+        }
+    });
     });
 
     mostrarSaldos();
     mostrarHistorial();
 
-
-    // Cierra el menú hamburguesa cuando se hace clic en un enlace
+    // cerrar menú hamburguesa si existe
     document.querySelectorAll(".menu a").forEach(enlace => {
     enlace.addEventListener("click", () => {
-        document.getElementById("menu-toggle").checked = false;
+        const checkbox = document.getElementById("menu-toggle");
+        if (checkbox) checkbox.checked = false;
     });
     });
 
-    //pagina recibir
+    // Para la página recibir
     const direcciones = {
     BTC: {
         direccion: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
@@ -100,20 +110,41 @@
     const infoRed = document.getElementById("info-red");
     const qrContainer = document.getElementById("qrContainer");
 
+    if (select && span && infoRed && qrContainer) {
     select.addEventListener("change", () => {
-    const moneda = select.value;
-    span.textContent = direcciones[moneda].direccion;
-    infoRed.textContent = direcciones[moneda].red;
+        const moneda = select.value;
+        span.textContent = direcciones[moneda].direccion;
+        infoRed.textContent = direcciones[moneda].red;
 
-    // Reinicia la animación
-    qrContainer.classList.remove("fade-in");
-    void qrContainer.offsetWidth;
-    qrContainer.classList.add("fade-in");
+        qrContainer.classList.remove("fade-in");
+        void qrContainer.offsetWidth;
+        qrContainer.classList.add("fade-in");
     });
+    }
 
     function copiarDireccion() {
     navigator.clipboard.writeText(span.textContent).then(() => {
-        alert("Dirección copiada");
+        Swal.fire({
+        icon: 'success',
+        title: 'Dirección copiada',
+        timer: 1500,
+        showConfirmButton: false
+        });
     });
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname.includes("recibir")) {
+        Swal.fire('¡Atención!', '¿Estás seguro de continuar?', 'warning');
+    }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+  const toggleThemeBtn = document.getElementById('toggle-theme');
+  if (toggleThemeBtn) {
+    toggleThemeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+    });
+  }
+});
 

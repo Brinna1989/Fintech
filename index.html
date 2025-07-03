@@ -1,61 +1,107 @@
-      <!DOCTYPE html>
-      <html lang="es">
-      <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <title>Crypto Wallet</title>
-      <link rel="stylesheet" href="/css/styles.css" />
-      </head>
-      <body>
-    <header>
-    <img src="/img/logo.jpg" alt="Crypto Logo" class="logo" />
-    <h1> 🔐 Crypto Wallet</h1>
-    <nav class="hamburger-menu">
-    <input type="checkbox" id="menu-toggle" />
-    <label for="menu-toggle" class="menu-icon">☰</label>
-    <ul class="menu">
-      <li><a href="/index.html">Inicio</a></li>
-      <li><a href="/pages/recibir.html">Recibir</a></li>
-    </ul>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio - Crypto Wallet</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="index">
+
+  <!-- 🎥 VIDEO DE FONDO -->
+  <video autoplay muted loop class="video-fondo">
+    <source src="/video/crypto.mp4" type="video/mp4" />
+    Tu navegador no soporta videos en HTML5.
+  </video>
+
+  <!-- 🌐 MENÚ SUPERIOR -->
+  <nav class="top-nav">
+    <a href="/index.html" class="nav-item">
+      <span class="icon">🏠</span>
+      <span class="text">Inicio</span>
+    </a>
+    <a href="/wallet.html" class="nav-item">
+      <span class="icon">💼</span>
+      <span class="text">Wallet</span>
+    </a>
+    <a href="/pages/recibir.html" class="nav-item">
+      <span class="icon">📥</span>
+      <span class="text">Recibir</span>
+    </a>
+    <a href="/login.html" class="nav-item">
+      <span class="icon">👤</span>
+      <span class="text">Perfil</span>
+    </a>
   </nav>
-  </header>
-  
-    <main>
-  <div class="top-sections">
-    <section class="balances">
-      <h2>Saldos</h2>
-      <ul id="saldos">
-        <!-- Saldo por moneda -->
+
+  <!-- 👤 MENÚ USUARIO (solo visible si hay usuario) -->
+  <div class="user-menu-container" id="userMenuContainer" style="display: none;">
+    <button class="user-button" id="userButton">Mi Perfil ⯆</button>
+    <div class="user-menu" id="userMenu">
+      <a href="/wallet.html">Monedero</a>
+      <a href="/pages/cuenta.html">Cuenta</a>
+      <a href="#" id="cerrarSesion">Cerrar sesión</a>
+    </div>
+  </div>
+
+  <!-- 💬 PRESENTACIÓN -->
+  <main class="presentacion">
+    <section class="bienvenida">
+      <h1>Bienvenido a <span class="color-acento">Crypto Wallet</span></h1>
+      <p>Tu nueva billetera digital donde comprar, vender y usar criptomonedas es más fácil que nunca.</p>
+    </section>
+
+    <section class="beneficios">
+      <h2>¿Qué podés hacer con Crypto Wallet?</h2>
+      <ul>
+        <li>💸 Comprar y vender Bitcoin, Ethereum, USDT y muchas más cripto</li>
+        <li>📲 Pagar servicios directamente desde tu wallet</li>
+        <li>📤 Enviar y recibir cripto de forma rápida y segura</li>
+        <li>📈 Ver tu historial y el saldo actualizado en tiempo real</li>
       </ul>
     </section>
 
-    <section class="form-section">
-      <h3>Agregar transacción</h3>
-      <form id="formulario">
-        <select id="cripto" required>
-          <option value="BTC">Bitcoin (BTC)</option>
-          <option value="ETH">Ethereum (ETH)</option>
-          <option value="USDT">Tether (USDT)</option>
-        </select>
-        <input type="number" id="monto" placeholder="Monto" required />
-        <select id="tipo">
-          <option value="ingreso">Ingreso</option>
-          <option value="egreso">Egreso</option>
-        </select>
-        <input type="text" id="descripcion" placeholder="Descripción" required />
-        <button type="submit">Confirmar</button>
-      </form>
+    <section class="accion">
+      <p>Empezá ahora a manejar tus finanzas con libertad, desde cualquier lugar y sin complicaciones.</p>
+      <a href="/wallet.html" class="cta-btn">Ir a mi Wallet</a>
     </section>
-  </div>
+  </main>
 
-  <section class="historial">
-    <h3>Historial</h3>
-    <ul id="historial"></ul>
-    <button id="vaciar">Vaciar historial</button>
-  </section>
-</main>
+  <!-- 🔧 SCRIPTS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const usuarioActivo = localStorage.getItem("usuarioActivo");
 
+      if (usuarioActivo) {
+        const userMenuContainer = document.getElementById("userMenuContainer");
+        const userButton = document.getElementById("userButton");
 
-    <script src="/js/main.js"></script>
-    </body>
-    </html>
+        userMenuContainer.style.display = "block";
+        userButton.textContent = `Hola, ${usuarioActivo} ⯆`;
+
+        userButton.addEventListener("click", () => {
+          userMenuContainer.classList.toggle("active");
+        });
+
+        document.getElementById("cerrarSesion").addEventListener("click", () => {
+          localStorage.removeItem("usuarioActivo");
+          window.location.href = "/login.html";
+        });
+      }
+
+      // Cambio de tema para ambos botones
+      const toggleThemeButtons = document.querySelectorAll('#toggle-theme');
+      toggleThemeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.body.classList.toggle('light-mode');
+        });
+      });
+    });
+  </script>
+
+  <script src="/js/menu-usuario.js"></script>
+  <script src="/js/main.js"></script>
+  <button id="toggle-theme" title="Cambiar tema">🌙</button>
+
+</body>
+</html>

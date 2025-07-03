@@ -1,0 +1,66 @@
+body {
+  background-color: darkred !important;
+}
+
+.dashboard-header {
+  background: #00ffae;
+  color: #111;
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 2px solid #111;
+}
+
+.card-container {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 200px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 8px #00ffae88;
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: scale(1.03);
+}
+.card.btc { border-left: 5px solid orange; }
+.card.eth { border-left: 5px solid violet; }
+.card.usdt { border-left: 5px solid green; }
+
+.acciones {
+  text-align: center;
+  margin-top: 2rem;
+}
+.acciones button {
+  margin: 0.5rem;
+  background: #00ffae;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  background: #222;
+  padding: 1rem 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: white;
+}
+.bottom-nav a {
+  color: #00ffae;
+  text-decoration: none;
+  font-size: 1.1rem;
+}

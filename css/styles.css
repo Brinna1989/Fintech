@@ -1,30 +1,48 @@
-    body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #111;
-    color: #eee;
-    margin: 0;
-    padding: 0;
-    }
 
- header {
-  background-color: #2d2d2d;
+:root {
+  --bg-color: #000;
+  --text-color: #eee;
+  --accent-color: #00ffae;
+  --box-bg: rgba(0, 0, 0, 0.6);
+}
+
+body.light-mode {
+  --bg-color: #fff;
+  --text-color: #111;
+  --accent-color: #00cc8f;
+  --box-bg: rgba(255, 255, 255, 0.8);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: url('/img/fondo.gif') no-repeat center center fixed;
+  background-size: cover;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+header {
+  background-color: transparent;
   padding: 2rem 1rem;
   text-align: center;
   color: #eee;
-  max-width: 400px;  /* ancho máximo fijo */
-  margin: 0 auto;    /* centra el header en la pantalla */
-  border-radius: 8px; 
-  box-shadow: 0 0 10px #00ffae88; 
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00ffae88;
 }
 
 header .logo {
-  width: 100%;        /* ocupa todo el ancho disponible */
-  max-width: 300px;   /* pero no más de 300px */
-  height: auto;       /* mantiene la proporción */
-  margin-bottom: 0.5rem;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 0 auto 0.5rem;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 header h1 {
@@ -37,24 +55,22 @@ header h1 {
   gap: 0.4rem;
 }
 
+main {
+  padding: 2rem 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
 
+h2, h3 {
+  color: var(--accent-color);
+}
 
-    main {
-    padding: 2rem;
-    }
+form, ul {
+  max-width: 400px;
+  margin: 1rem 0;
+}
 
-    h2, h3 {
-    color: #00ffae;
-    }
-
-    form, ul {
-    max-width: 400px;
-    margin: 1rem 0;
-    }
-
-form input,
-form select,
-form button {
+form input, form select, form button {
   width: 100%;
   box-sizing: border-box;
   margin: 0.4rem 0;
@@ -64,43 +80,35 @@ form button {
   border: none;
 }
 
+button, #vaciar, .cta-btn {
+  background-color: var(--accent-color);
+  color: #111;
+  font-weight: bold;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 
-    button {
-    background-color: #00ffae;
-    color: #111;
-    font-weight: bold;
-    }
+button:hover, #vaciar:hover, .cta-btn:hover {
+  background-color: #00cc8f;
+}
 
-    li {
-    background-color: #222;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border-left: 5px solid gray;
-    }
-
-    li.BTC {
-    border-color: orange;
-    }
-    li.ETH {
-    border-color: violet;
-    }
-    li.USDT {
-    border-color: green;
-    }
-
-    li {
+ul li {
+  background-color: #222;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-left: 5px solid gray;
   transition: background-color 0.3s, transform 0.3s;
 }
 
+li.BTC { border-color: orange; }
+li.ETH { border-color: violet; }
+li.USDT { border-color: green; }
 li.nuevo {
   background-color: rgb(114, 212, 219) !important;
   transform: scale(1.03);
-}
-
-main {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
 }
 
 .top-sections {
@@ -111,24 +119,9 @@ main {
   margin-bottom: 2rem;
 }
 
-.balances,
-.form-section {
+.balances, .form-section {
   flex: 1 1 350px;
   max-width: 400px;
-}
-
-#vaciar {
-  width: 100%;
-  box-sizing: border-box;
-  margin: 0.4rem 0;
-  padding: 0.6rem 0.8rem;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: none;
-  background-color: #00ffae;
-  color: #111;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 .hamburger-menu {
@@ -141,19 +134,17 @@ main {
 .menu-icon {
   font-size: 2rem;
   cursor: pointer;
-  color: #00ffae;
+  color: var(--accent-color);
   display: block;
 }
 
-#menu-toggle {
-  display: none;
-}
+#menu-toggle { display: none; }
 
 .menu {
   display: none;
   flex-direction: column;
   background-color: #222;
-  border: 1px solid #00ffae;
+  border: 1px solid var(--accent-color);
   position: absolute;
   top: 2.5rem;
   right: 0;
@@ -168,7 +159,7 @@ main {
 
 .menu li a {
   text-decoration: none;
-  color: #00ffae;
+  color: var(--accent-color);
   font-weight: bold;
 }
 
@@ -176,63 +167,45 @@ main {
   display: flex;
 }
 
-/* pagina recibir */
-
-.red-info {
-  margin-top: 1rem;
+.red-info, .tooltip {
   background-color: #222;
-  border-left: 5px solid #00ffae;
+  border-left: 5px solid var(--accent-color);
   padding: 1rem;
   font-size: 0.9rem;
   border-radius: 8px;
+  color: var(--text-color);
 }
 
 .tooltip {
   background-color: #111;
-  border: 1px solid #00ffae;
-  color: #00ffae;
-  padding: 0.5rem;
-  font-size: 0.85rem;
-  border-radius: 6px;
-  margin-top: 1rem;
+  border: 1px solid var(--accent-color);
 }
 
 footer {
-  margin-top: 3rem;
-  background-color: #0f0f0f;
-  padding: 1.5rem;
+  width: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   text-align: center;
+  padding: 1rem;
   font-size: 0.9rem;
-  border-top: 1px solid #222;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
 }
 
 footer a {
-  color: #00ffae;
-  margin: 0 0.5rem;
+  color: var(--accent-color);
   text-decoration: none;
+  margin: 0 0.5rem;
 }
 
 .qr-img {
   width: 220px;
   height: 220px;
-  border: 2px solid #00ffae;
+  border: 2px solid var(--accent-color);
   border-radius: 12px;
   margin: 1rem auto;
   display: block;
-}
-
-button {
-  background-color: #00ffae;
-  border: none;
-  color: black;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-button:hover {
-  background-color: #00cc8f;
 }
 
 .direccion span {
@@ -248,4 +221,247 @@ button:hover {
   to { opacity: 1; }
 }
 
+.top-nav {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 255, 174, 0.3);
+  backdrop-filter: blur(8px);
+  border-radius: 50px;
+  padding: 0.4rem 1.5rem;
+  display: flex;
+  gap: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 255, 174, 0.4);
+  z-index: 1000;
+  font-weight: bold;
+}
 
+.top-nav .nav-item {
+  color: #111;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 40px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.top-nav .nav-item:hover, .top-nav .nav-item:focus {
+  background: #00cc8f;
+  color: #fff;
+}
+
+.video-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.presentacion, .recibir-box, .login-contenedor {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 255, 174, 0.4);
+}
+
+.presentacion {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 6rem;
+}
+
+.presentacion h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.presentacion p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.beneficios ul {
+  list-style: none;
+  padding-left: 0;
+  text-align: center;
+}
+
+.beneficios li {
+  margin-bottom: 0.8rem;
+  padding-left: 1rem;
+  position: relative;
+  color: var(--text-color);
+}
+
+/* .beneficios li::before {
+  content: '✔';
+  position: absolute;
+  left: 0;
+  color: var(--accent-color);
+} */
+
+
+.user-menu-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1001;
+}
+
+.user-button {
+  background-color: var(--accent-color);
+  color: #111;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.user-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #222;
+  border: 1px solid var(--accent-color);
+  padding: 0.5rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 255, 174, 0.2);
+}
+
+.user-menu-container.active .user-menu {
+  display: block;
+}
+
+.user-menu a, .theme-toggle-btn {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.user-menu a:hover, .theme-toggle-btn:hover {
+  background-color: #00cc8f;
+  color: #111;
+}
+
+#toggle-theme {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: var(--accent-color);
+  color: var(--bg-color); /* mejor contraste */
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.5rem; /* icono más visible */
+  box-shadow: 0 2px 8px rgba(0, 255, 174, 0.6);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+#toggle-theme:hover {
+  background-color: var(--accent-color-hover); /* si tenés variable */
+}
+
+
+body.light-mode .user-menu, body.light-mode .presentacion, body.light-mode .recibir-box, body.light-mode .login-contenedor {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #111;
+}
+
+body.light-mode footer {
+  background-color: #f5f5f5;
+  color: #111;
+}
+
+body.index .presentacion {
+  padding-top: 6rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.gif-bitcoin {
+  display: block;
+  margin: 0 auto 0.5rem auto;
+  max-width: 100px;
+  height: auto;
+}
+
+.dashboard, .recibir-contenedor, .login-wrapper {
+  padding-top: 6rem;
+}
+
+main.recibir-contenedor {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 6rem 1rem 2rem;
+}
+
+body.recibir-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.beneficios ul {
+  list-style: none;
+  padding-left: 0;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.beneficios li {
+  margin-bottom: 0.8rem;
+  display: inline-block;  
+  text-align: left;       
+  max-width: 100%;        
+}
+
+.dashboard-container {
+  max-width: 900px;
+  margin: 4rem auto;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 255, 174, 0.4);
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.login-contenedor {
+  background-color: rgba(0, 0, 0, 0.85);  /* Mantiene fondo oscuro */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 174, 0.5);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}

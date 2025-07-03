@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Wallet - Crypto Wallet</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+
+  <!-- 👤 MENÚ USUARIO -->
+<div class="user-menu-container" id="userMenuContainer" style="display: none;">
+  <button class="user-button" id="userButton">Mi Perfil ⯆</button>
+  <div class="user-menu" id="userMenu">
+    <a href="/wallet.html">Monedero</a>
+    <a href="/pages/cuenta.html">Cuenta</a>
+    <button id="toggle-theme" class="theme-toggle-btn" style="background: none; border: none; cursor: pointer; text-align: left; width: 100%; padding: 8px 12px;">🌙 Cambiar tema</button>
+    <a href="#" id="cerrarSesion">Cerrar sesión</a>
+  </div>
+</div>
+
+
+  <!-- Menú central fijo -->
+  <nav class="top-nav">
+    <a href="/index.html" class="nav-item">
+      <span class="icon">🏠</span>
+      <span class="text">Inicio</span>
+    </a>
+    <a href="/wallet.html" class="nav-item">
+      <span class="icon">💼</span>
+      <span class="text">Wallet</span>
+    </a>
+    <a href="/pages/recibir.html" class="nav-item">
+      <span class="icon">📥</span>
+      <span class="text">Recibir</span>
+    </a>
+    <a href="/login.html" class="nav-item">
+      <span class="icon">👤</span>
+      <span class="text">Perfil</span>
+    </a>
+  </nav>
+
+  <main class="dashboard">
+    <div class="dashboard-container">
+    <!-- Tarjetas con saldo estimado -->
+    <section class="card-container">
+      <div class="card btc">
+        <h2>BTC</h2>
+        <p>0.045 BTC</p>
+        <small>≈ $1,200 USD</small>
+      </div>
+      <div class="card eth">
+        <h2>ETH</h2>
+        <p>0.7 ETH</p>
+        <small>≈ $2,500 USD</small>
+      </div>
+      <div class="card usdt">
+        <h2>USDT</h2>
+        <p>350 USDT</p>
+        <small>≈ $350 USD</small>
+      </div>
+    </section>
+
+    <!-- Formulario y saldos en tiempo real -->
+    <div class="top-sections">
+      <section class="balances">
+        <h2>Saldos</h2>
+        <ul id="saldos"></ul>
+      </section>
+
+      <section class="form-section">
+        <h3>Agregar transacción</h3>
+        <form id="formulario">
+          <select id="cripto" required>
+            <option value="BTC">Bitcoin (BTC)</option>
+            <option value="ETH">Ethereum (ETH)</option>
+            <option value="USDT">Tether (USDT)</option>
+          </select>
+          <input type="number" id="monto" placeholder="Monto" required />
+          <select id="tipo">
+            <option value="ingreso">Ingreso</option>
+            <option value="egreso">Egreso</option>
+            <option value="compra">Compra</option>
+            <option value="venta">Venta</option>
+            <option value="servicio">Pago de servicio</option>
+          </select>
+          <input type="text" id="descripcion" placeholder="Descripción" required />
+          <button type="submit">Confirmar</button>
+        </form>
+      </section>
+    </div>
+
+    <section class="historial">
+      <h3>Historial</h3>
+      <ul id="historial"></ul>
+      <button id="vaciar">Vaciar historial</button>
+    </section>
+    </div>
+  </main>
+
+  <!-- 🔧 SCRIPTS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const usuarioActivo = localStorage.getItem("usuarioActivo");
+
+      if (usuarioActivo) {
+        const userMenuContainer = document.getElementById("userMenuContainer");
+        const userButton = document.getElementById("userButton");
+
+        userMenuContainer.style.display = "block";
+        userButton.textContent = `Hola, ${usuarioActivo} ⯆`;
+
+        userButton.addEventListener("click", () => {
+          userMenuContainer.classList.toggle("active");
+        });
+
+        document.getElementById("cerrarSesion").addEventListener("click", () => {
+          localStorage.removeItem("usuarioActivo");
+          window.location.href = "/login.html";
+        });
+      }
+
+      // Cambio de tema para ambos botones
+      const toggleThemeButtons = document.querySelectorAll('#toggle-theme');
+      toggleThemeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.body.classList.toggle('light-mode');
+        });
+      });
+    });
+  </script>
+  
+  <script src="/js/menu-usuario.js"></script> 
+  <script src="/js/main.js"></script>
+  <button id="toggle-theme" class="nav-item">🌙</button>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

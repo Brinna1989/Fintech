@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iniciar Sesión - Crypto Wallet</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <video autoplay loop muted class="video-fondo">
+    <source src="/video/fondo.mp4" type="video/mp4">
+  </video>
+
+  <!-- Menú superior -->
+  <nav class="top-nav">
+    <a href="/index.html" class="nav-item">
+      <span class="icon">🏠</span>
+      <span class="text">Inicio</span>
+    </a>
+    <a href="/wallet.html" class="nav-item">
+      <span class="icon">💼</span>
+      <span class="text">Wallet</span>
+    </a>
+    <a href="/pages/recibir.html" class="nav-item">
+      <span class="icon">📥</span>
+      <span class="text">Recibir</span>
+    </a>
+    <div class="nav-item user-menu" id="user-menu" style="position: relative;">
+      <button id="perfil-btn">👤 Mi Perfil</button>
+      <div class="dropdown" id="dropdown-menu" style="display: none; position: absolute; top: 100%; right: 0; background: #111; border: 1px solid #ccc; padding: 0.5rem; z-index: 10;">
+        <a href="/pages/cuenta.html">Cuenta</a><br>
+        <a href="/wallet.html">Monedero</a><br>
+        <a href="#" id="cerrar-sesion">Cerrar sesión</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="login-wrapper">
+    <div class="presentacion">
+      <main class="login-contenedor">
+
+        <!-- Formulario de Iniciar sesión -->
+        <section class="login-box" id="login-box">
+          <h2>Iniciar sesión</h2>
+          <form id="form-login">
+            <label for="usuario">Usuario</label>
+            <input type="text" id="usuario" required />
+
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" required />
+
+            <button type="submit">Ingresar</button>
+          </form>
+          <p>¿No tenés cuenta? <a href="#" id="mostrar-registro">Registrate</a></p>
+        </section>
+
+        <!-- Mensaje si ya está logueado -->
+        <section id="logged-in-message" style="display:none;">
+          <h2>¡Bienvenido de nuevo!</h2>
+          <p>Ya estás logueado como <span id="nombre-usuario"></span>.</p>
+          <button id="cerrar-sesion-login">Cerrar sesión</button>
+        </section>
+
+        <!-- Formulario de Registro -->
+        <section class="register-box" id="register-box" style="display: none;">
+          <h2>Registrarse</h2>
+          <form id="form-register">
+            <label for="nuevoUsuario">Nuevo usuario</label>
+            <input type="text" id="nuevoUsuario" required />
+
+            <label for="nuevaPassword">Nueva contraseña</label>
+            <input type="password" id="nuevaPassword" required />
+
+            <button type="submit">Registrarse</button>
+          </form>
+          <p>¿Ya tenés cuenta? <a href="#" id="mostrar-login">Iniciar sesión</a></p>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <button id="toggle-theme" title="Cambiar tema">🌙</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    // Funciones utilitarias
+    function obtenerUsuarios() {
+      return JSON.parse(localStorage.getItem("usuarios")) || [];
+    }
+
+    function guardarUsuarios(usuarios) {
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginBox = document.getElementById('login-box');
+      const registerBox = document.getElementById('register-box');
+      const loggedInMessage = document.getElementById('logged-in-message');
+      const mostrarRegistro = document.getElementById('mostrar-registro');
+      const mostrarLogin = document.getElementById('mostrar-login');
+      const nombreUsuarioSpan = document.getElementById('nombre-usuario');
+      const cerrarSesionLoginBtn = document.getElementById('cerrar-sesion-login');
+      const userMenu = document.getElementById("user-menu");
+      const perfilBtn = document.getElementById("perfil-btn");
+      const dropdown = document.getElementById("dropdown-menu");
+      const cerrarSesionBtn = document.getElementById("cerrar-sesion");
+
+      const usuarioActivo = localStorage.getItem("usuarioActivo");
+
+      if (usuarioActivo) {
+        if (loginBox) loginBox.style.display = "none";
+        if (registerBox) registerBox.style.display = "none";
+        if (loggedInMessage) {
+          loggedInMessage.style.display = "block";
+          if (nombreUsuarioSpan) nombreUsuarioSpan.textContent = usuarioActivo;
+        }
+        if (userMenu) {
+          perfilBtn.textContent = `👤 ${usuarioActivo}`;
+          userMenu.style.display = "block";
+        }
+      } else {
+        if (loginBox) loginBox.style.display = "block";
+        if (registerBox) registerBox.style.display = "none";
+        if (loggedInMessage) loggedInMessage.style.display = "none";
+        if (userMenu) userMenu.style.display = "none";
+      }
+
+      if (mostrarRegistro) {
+        mostrarRegistro.addEventListener('click', (e) => {
+          e.preventDefault();
+          loginBox.style.display = 'none';
+          registerBox.style.display = 'block';
+        });
+      }
+
+      if (mostrarLogin) {
+        mostrarLogin.addEventListener('click', (e) => {
+          e.preventDefault();
+          registerBox.style.display = 'none';
+          loginBox.style.display = 'block';
+        });
+      }
+
+      const formRegister = document.getElementById("form-register");
+      if (formRegister) {
+        formRegister.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const nuevoUsuario = document.getElementById("nuevoUsuario").value.trim();
+          const nuevaPassword = document.getElementById("nuevaPassword").value.trim();
+          const usuarios = obtenerUsuarios();
+
+          if (!nuevoUsuario || !nuevaPassword) {
+            Swal.fire("Atención", "Completá ambos campos.", "warning");
+            return;
+          }
+
+          if (usuarios.some(u => u.usuario === nuevoUsuario)) {
+            Swal.fire("Error", "Ese usuario ya existe.", "error");
+            return;
+          }
+
+          usuarios.push({ usuario: nuevoUsuario, password: nuevaPassword });
+          guardarUsuarios(usuarios);
+
+          Swal.fire("Registro exitoso", "Ya podés iniciar sesión.", "success");
+          e.target.reset();
+          registerBox.style.display = 'none';
+          loginBox.style.display = 'block';
+        });
+      }
+
+      const formLogin = document.getElementById("form-login");
+      if (formLogin) {
+        formLogin.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const usuario = document.getElementById("usuario").value.trim();
+          const password = document.getElementById("password").value;
+          const usuarios = obtenerUsuarios();
+
+          const usuarioEncontrado = usuarios.find(u => u.usuario === usuario && u.password === password);
+
+          if (usuarioEncontrado) {
+            localStorage.setItem("usuarioActivo", usuario);
+            Swal.fire({
+              icon: "success",
+              title: "¡Bienvenido!",
+              text: `Hola, ${usuario}!`,
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(() => {
+              window.location.href = "index.html";
+            });
+          } else {
+            Swal.fire("Error", "Usuario o contraseña incorrectos.", "error");
+          }
+        });
+      }
+
+      if (cerrarSesionLoginBtn) {
+        cerrarSesionLoginBtn.addEventListener("click", () => {
+          localStorage.removeItem("usuarioActivo");
+          window.location.reload();
+        });
+      }
+
+      if (perfilBtn) {
+        perfilBtn.addEventListener("click", () => {
+          dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+        });
+      }
+
+      if (cerrarSesionBtn) {
+        cerrarSesionBtn.addEventListener("click", () => {
+          localStorage.removeItem("usuarioActivo");
+          window.location.href = "/login.html";
+        });
+      }
+
+      // Tema
+      const toggleThemeBtn = document.getElementById('toggle-theme');
+      if (toggleThemeBtn) {
+        toggleThemeBtn.addEventListener('click', () => {
+          document.body.classList.toggle('light-mode');
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

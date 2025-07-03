@@ -6,19 +6,39 @@
     <title>Crypto Wallet</title>
     <link rel="stylesheet" href="/css/styles.css" />
     </head>
-    <body>
-    <header>
-        <img src="/img/logo.jpg" alt="Crypto Logo" class="logo" />
-        <h1>🔐 Crypto Wallet</h1>
-        <nav class="hamburger-menu">
-        <input type="checkbox" id="menu-toggle" />
-        <label for="menu-toggle" class="menu-icon">☰</label>
-        <ul class="menu">
-            <li><a href="/index.html">Inicio</a></li>
-            <li><a href="/pages/recibir.html">Recibir</a></li>
-        </ul>
-        </nav>
-    </header>
+    <body class="recibir-page">
+  <!-- 👤 MENÚ USUARIO -->
+  <div class="user-menu-container" id="userMenuContainer" style="display: none;">
+    <button class="user-button" id="userButton">Mi Perfil ⯆</button>
+    <div class="user-menu" id="userMenu">
+      <a href="/wallet.html">Monedero</a>
+      <a href="/pages/cuenta.html">Cuenta</a>
+      <button id="toggle-theme" class="theme-toggle-btn" style="background: none; border: none; cursor: pointer; text-align: left; width: 100%; padding: 8px 12px;">🌙 Cambiar tema</button>
+      <a href="#" id="cerrarSesion">Cerrar sesión</a>
+    </div>
+  </div>
+
+
+
+    <!-- Menú central fijo para todas las páginas -->
+    <nav class="top-nav">
+        <a href="/index.html" class="nav-item">
+        <span class="icon">🏠</span>
+        <span class="text">Inicio</span>
+        </a>
+        <a href="/wallet.html" class="nav-item">
+        <span class="icon">💼</span>
+        <span class="text">Wallet</span>
+        </a>
+        <a href="/pages/recibir.html" class="nav-item">
+        <span class="icon">📥</span>
+        <span class="text">Recibir</span>
+        </a>
+        <a href="/login.html" class="nav-item">
+        <span class="icon">👤</span>
+        <span class="text">Perfil</span>
+        </a>
+    </nav>
 
     <main class="recibir-contenedor">
         <section class="recibir-box">
@@ -47,11 +67,47 @@
         </section>
     </main>
 
+    <!-- 🔧 SCRIPTS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const usuarioActivo = localStorage.getItem("usuarioActivo");
+
+      if (usuarioActivo) {
+        const userMenuContainer = document.getElementById("userMenuContainer");
+        const userButton = document.getElementById("userButton");
+
+        userMenuContainer.style.display = "block";
+        userButton.textContent = `Hola, ${usuarioActivo} ⯆`;
+
+        userButton.addEventListener("click", () => {
+          userMenuContainer.classList.toggle("active");
+        });
+
+        document.getElementById("cerrarSesion").addEventListener("click", () => {
+          localStorage.removeItem("usuarioActivo");
+          window.location.href = "/login.html";
+        });
+      }
+
+      // Cambio de tema para ambos botones
+      const toggleThemeButtons = document.querySelectorAll('#toggle-theme');
+      toggleThemeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.body.classList.toggle('light-mode');
+        });
+      });
+    });
+  </script>
+
     <footer>
         Hecho con ❤️ en Argentina · <a href="#">Política de privacidad</a> · <a href="#">Contacto</a><br />
         <a href="#">Instagram</a> | <a href="#">Twitter</a> | <a href="#">GitHub</a>
     </footer>
 
+    
+    <script src="/js/menu-usuario.js"></script>
     <script src="/js/recibir.js"></script>
+    <button id="toggle-theme" title="Cambiar tema">🌙</button>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
     </html>
